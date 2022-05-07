@@ -196,49 +196,78 @@ $\PAR(x) \neq \PAR(x')$.
 		иначе, можно было бы сделать подстановку только для $l_i$~и~$l_j$, получив, что $F$ ложна.
 		
 		\begin{enumerate}
-			\item \emph{At~least one of~$C_2$ and~$C_3$ contains a~single non-deterministic variable.} Assume that it is~$C_2$:
+			\item \emph{Хотя бы один из клозов~$C_2$ или~$C_3$ содержит одну дополнительную переменную.} 
+			Предположим, что это~$C_2$:
 			\[\{l_i,y_1\} \subseteq C_2 \subseteq \{l_i, \overline{l_j}, y_1\}\,. \]
-			Assign $l_j \gets 1$. This eliminates two clauses: $C_1$ and $C_3$ are satisfied. Also, under this substitution, $C_2=\{l_i,y_1\}$ and $l_i$
-			is a~$1$-literal. We claim that in any satisfying assignment of the resulting formula~$F'$, $l_i=\overline{y_1}$. Indeed, if $(x,y)$
-			satisfies $F'$ and $l_i=y_1$, then $l_i=y_1=1$ (otherwise $C_2$
-			is~falsified). But then there is no critical clause in~$F'$ w.r.t. $(x,y,i)$. Since in every satisfying assignment $l_i=\overline{y_1}$,
-			we~can replace every occurrence of~$y_1$ ($\overline{y_1}$)
-			by~$\overline{l_i}$ ($y_1$, respectively). This, in~particular, satisfies
-			the clause~$C_2$.
+			Сделаем подстановку $l_j \gets 1$. Это удалит два клоза: $C_1$ и $C_3$. Также после этой подстановки $C_2$ будет иметь вид $\{l_i,y_1\}$ и $l_i$
+			станет~$1$-литералом. 
+			Давайте проверим, что во всех означиваниях, выполняющих формулу~$F'$ верно, что $l_i=\overline{y_1}$. 
+			В самом деле, если $(x,y)$ является выполняющим набором $F'$ и $l_i=y_1$, 
+			тогда $l_i=y_1=1$ (иначе $C_2$ не выполнен). 
+			Но тогда не будет критического клоза в~$F'$ по отношению $(x,y,i)$. 
+			Таким образом во всех выполняющих наборах $F'$: $l_i=\overline{y_1}$.
+			Тогда мы можем заменить каждый встречающийся литерал $y_1$ ($\overline{y_1}$)
+			на~$\overline{l_i}$ ($y_1$, соответственно).
+			Это, в частности, выполнит клоз $C_2$.
 			
-			\item \emph{Both $C_2$ and $C_3$ contain at~least two non-deterministic variables:}
+			\item \emph{И $C_2$ и $C_3$ содержат хотя бы две дополнительные переменные:}
 			\[
 			\{l_i,\ l_j\} \subseteq C_1, \quad
 			\{l_i,\ y_1,\ y_2\} \subseteq C_2, \quad
 			\{l_j,\ y_3,\ y_4\} \subseteq C_3 \, .
 			\]
-			Here, $y_1$~and~$y_2$ are different variables, $y_3$~and~$y_4$ are also different, though it~is not excluded that some of $y_1$~and~$y_2$
-			coincide with some of $y_3$~and~$y_4$. Let $Y \subseteq \{y_1, \dotsc, y_s\}$ be~non-deterministic variables appearing in~$C_2$ or~$C_3$.
+			Здесь $y_1$~и~$y_2$ - разные переменные, $y_3$~и~$y_4$ - тоже разные, 
+			при этом, не исключено, что некоторые из $y_1$~и~$y_2$
+			совпадают с некоторыми из $y_3$~и~$y_4$. 
+			Рассмотрим все дополнительные переменные, встречающиеся в $C_2$ или $C_3$:
+			$Y \subseteq \{y_1, \dotsc, y_s\}$.
 			
-			Recall that for every $(x,y) \in \{0,1\}^{n+s}$ such that $F(x,y)=1$ and $l_i=l_j = 1$, it holds that $y=0$ for all $y \in Y$. This means that
-			if a~variable $y \in Y$ appears in both~$C_2$ and~$C_3$, then it has the same sign in~both clauses. Consider two subcases.
+			Напомним, что для всех $(x,y) \in \{0,1\}^{n+s}$ таких, что $F(x,y)=1$ и $l_i=l_j = 1$, следует, что $y=0$ для всех $y \in Y$. 
+			Это значит, что, если переменная $y \in Y$  встречается в обоих клозах $c_2$ и $C_3$, то она там встречается с одинаковым знаком.
+			Рассмотрим два подслучая:
 			
 			\begin{enumerate}
 				\item $Y=\{y_1,y_2\}$: \[\{l_i,\ l_j\} \subseteq C_1,\quad  \{l_i,\ y_1,\ y_2\} \subseteq C_2,\quad  \{l_j,\ y_1,\ y_2\} \subseteq C_3 \, .\]
 				
-				Assume that $\overline{y_1} \not \in C_1$. Assign $l_i \gets 1$, $l_j \gets 1$. Then, assigning $y_1 \gets 0$ eliminates at~least two clauses. Let~us show that there remains
-				a~clause that contains $\overline{y_2}$. Consider $x \in \PAR_n^{-1} (1)$, such that $l_i = l_j = 1$, and its extension $y \in \{0, 1\}^s$, such $F(x, y) = 1$. We~know that $y_1$ and $y_2$ must
-				be~equal to~$0$. However, flipping the value of~$y_2$ results
-				in~a~satisfying assignment.
-				Thus, it remains to analyze the following case: \[\{l_i,\ l_j, \overline{y_1}, \overline{y_2} \} \subseteq C_1, \quad               \{l_i,\ y_1,\ y_2\} \subseteq C_2, \quad
+				Предположим, что $\overline{y_1} \not \in C_1$. 
+				Сделаем подстановку $l_i \gets 1$, $l_j \gets 1$. 
+				Тогда подстановка $y_1 \gets 0$ элиминирует хотя бы два клоза. 
+				Покажем, что остались клозы, содержащие $\overline{y_2}$. 
+				Предположим, это не так.
+				Рассмотрим $x \in \PAR_n^{-1} (1)$ такой, что $l_i = l_j = 1$, и его расширение $y \in \{0, 1\}^s$ такое, что $F(x, y) = 1$. Мы знаем, что $y_1$ и $y_2$ обязаны быть равны $0$.
+				Однако, если поменять значение $y_2$ с $0$ на $1$, то формула будет все еще выполнена. 
+				А такого не может быть, значит остался хотя бы один клоз, содержащий $\overline{y_2}$.
+				И сделав подстановку $y_2 \gets 0$ удалится еще один клоз.
+				Аналогично, если $\overline{y_2} \not \in C_1$.
+				Теперь осталось проанализировать следующий случай: 
+				\[\{l_i,\ l_j, \overline{y_1}, \overline{y_2} \} \subseteq C_1, \quad               \{l_i,\ y_1,\ y_2\} \subseteq C_2, \quad
 				\{l_j,\ y_1,\ y_2\} \subseteq C_3 \, .\]
 				
-				Assume that $\overline{l_j} \not \in C_2$ and $\overline{l_i} \not \in C_1$. Assign $l_i \gets 1$, then assign $y_1 \gets 0$ and $y_2 \gets 0$. Under this assignment, $C_3 = \{l_j\}$ (recall that $C_3$ cannot contain other deterministic variables, see Case~\ref{case:three}). This would mean that $l_j=1$ in~every satisfying assignment of the resulting CNF formula which cannot be~the case for a~CNF encoding of~parity.
-				Thus, we~may assume that either $\overline{l_j} \in C_2$ or $\overline{l_i} \in C_1$. Without loss of~generality, assume that
+				Предположим, что $\overline{l_j} \not \in C_2$ и $\overline{l_i} \not \in C_1$. 
+				Сделаем подстановку $l_i \gets 1$, и затем подстановку $y_1 \gets 0$ и $y_2 \gets 0$. 
+				После этого $C_3$ примет вид $\{l_j\}$ 
+				(напомним, что $C_3$ не содержит другие детерминированные переменные, смотри случай~\ref{case:three}). 
+				Это значит, что $l_j=1$ во всех выполняющих означиваниях результирующей КНФ формулах, 
+				чего не может быть для КНФ-кодировки функции четности.
+				Таким образом, мы можем предположить, что либо $\overline{l_j} \in C_2$ либо $\overline{l_i} \in C_1$. 
+				Не умаляя общности, предположим, что 
 				$\overline{l_j} \in C_2$.
 				
-				Let~us show that for every $(x, y) \in \{0, 1\}^{n + s}$, such that $F(x, y) = 1$ and $l_i = 1$, it~holds that $l_j \neq y_1$ and $l_j \neq y_2$. Indeed, if there is $(x, y) \in \{0, 1\}^{n + s}$ such that $F(x,y)=1$ and $l_i = l_j = 1$, then $y_1$ and $y_2$ must be equal to~$0$. If there is $(x, y) \in \{0, 1\}^{n + s}$, such that $F(x, y) = 1, l_i = 1, l_j = 0$, then $y_1$ and $y_2$ must be equal to~$0$, otherwise $F$~does not contain a~critical clause w.r.t. $(x, y, i)$. Thus, assigning $l_i \gets 1$ eliminates two clauses ($C_1$~and~$C_2$). We~then replace~$y_1$ and~$y_2$ with $\overline{l_j}$ and delete the clause~$C_3$.
+				Давайте покажем, что для всех $(x, y) \in \{0, 1\}^{n + s}$ таких, что 
+				$F(x, y) = 1$ и $l_i = 1$ следует, что $l_j \neq y_1$ и $l_j \neq y_2$. 
+				В самом деле, если есть $(x, y) \in \{0, 1\}^{n + s}$ такой, что $F(x,y)=1$ и $l_i = l_j = 1$, тогда $y_1$ и $y_2$ должны быть равны~$0$. 
+				Если есть $(x, y) \in \{0, 1\}^{n + s}$ такой, что $F(x, y) = 1, l_i = 1, l_j = 0$, тогда $y_1$ и $y_2$ должны быть равны~$0$, иначе $F$~не содержит критического клоза по отношению к~$(x, y, i)$. 
+				Таким образом, подстановка $l_i \gets 1$ удаляет два клоза ($C_1$~и~$C_2$). Затем мы можем заменить $y_1$ и~$y_2$ на $\overline{l_j}$ и удалить клоз~$C_3$.
 				
 				\item $|Y| \ge 3, \{y_1,y_2,y_3\} \subseteq Y$: \[\{l_i,\ l_j\} \subseteq C_1,\quad  \{l_i,\ y_1,\ y_2\} \subseteq C_2,\quad  \{l_j,\ y_1,\ y_3\} \subseteq C_3 \, .\]
 				
-				Assigning $l_i \gets 1, l_j \gets 1$ eliminates $C_1, C_2, C_3$. Assigning $y_1 \gets 0$ eliminates at least one more clause
-				($y_1$ appears positively at least two times, but it~may appear in~$C_1$).
-				There must be a~clause with $\overline{y_2}$ (otherwise we could assign $y_2 \gets 1$). Assigning $y_2 \gets 0$ eliminates at~least one more clause. Similarly, assigning $y_3 \gets 1$ eliminates another clause. In total, we eliminate at~least six clauses.
+				Сделаем подстановку $l_i \gets 1, l_j \gets 1$. Она удалит $C_1, C_2, C_3$. 
+				Подстановка $y_1 \gets 0$ удалит еще хотя бы один клоз
+				($y_1$ встречается положительно хотя бы два раза, но один из этих двух раз может быть в~$C_1$).
+				После этого должен остаться клоз, содержащий $\overline{y_2}$ (иначе мы могли бы сделать подстановку $y_2 \gets 1$). 
+				Подстановка $y_2 \gets 0$ удалит еще хотя бы один клоз. 
+				Аналогично, подстановка $y_3 \gets 1$ удалит еще один (новый) клоз. 
+				Итого, мы удалили хотя бы $6$ клозов.
 			\end{enumerate}
 		\end{enumerate}
 	\end{enumerate}
